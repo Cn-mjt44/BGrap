@@ -1,0 +1,107 @@
+:root
+{
+  --default-background : 192;
+  --primary-color-r : 170;
+  --primary-color-g : 112;
+  --primary-color-b : 255;
+  --emphasize-color-r : 255;
+  --emphasize-color-g : 127;
+  --emphasize-color-b : 0;
+}
+
+:root
+{
+
+  --default-background-color: rgb(calc(var(--default-background) * 4 / 2  ), calc(var(--default-background) * 4 / 2 ), calc(var(--default-background) * 4 / 2 ));
+  --primary-background-color: rgb(calc(var(--primary-color-r) * 4 / 2 ), calc(var(--primary-color-g) * 4 / 2 ), calc(var(--primary-color-b) * 4 / 2 ));
+  --emphasize-background-color: rgb(calc(var(--emphasize-color-r) * 4 / 2 ), calc(var(--emphasize-color-g) * 4 / 2 ), calc(var(--emphasize-color-b) * 4 / 2 ));
+
+  --default-background-color-hover: rgb(calc(var(--default-background) * 4 / 3  ), calc(var(--default-background) * 4 / 3 ), calc(var(--default-background) * 4 / 3 ));
+  --primary-background-color-hover: rgb(calc(var(--primary-color-r) * 4 / 3 ), calc(var(--primary-color-g) * 4 / 3 ), calc(var(--primary-color-b) * 4 / 3 ));
+  --emphasize-background-color-hover: rgb(calc(var(--emphasize-color-r) * 4 / 3 ), calc(var(--emphasize-color-g) * 4 / 3 ), calc(var(--emphasize-color-b) * 4 / 3 ));
+
+  --default-background-color-active: rgb(calc(var(--default-background) * 4 / 4  ), calc(var(--default-background) * 4 / 4  ), calc(var(--default-background) * 4 / 4  ));
+  --primary-background-color-active: rgb(calc(var(--primary-color-r) * 4 / 4  ), calc(var(--primary-color-g) * 4 / 4  ), calc(var(--primary-color-b) * 4 / 4  ));
+  --emphasize-background-color-active: rgb(calc(var(--emphasize-color-r) * 4 / 4  ), calc(var(--emphasize-color-g) * 4 / 4  ), calc(var(--emphasize-color-b) * 4 / 4  ));
+
+  --default-border-color: rgb(calc(var(--default-background) * 4 / 4), calc(var(--default-background) * 4 / 4), calc(var(--default-background) * 4 / 4));
+  --primary-border-color: rgb(calc(var(--primary-color-r) * 4 / 4), calc(var(--primary-color-g) * 4 / 4), calc(var(--primary-color-b) * 4 / 4));
+  --emphasize-border-color: rgb(calc(var(--emphasize-color-r) * 4 / 4), calc(var(--emphasize-color-g) * 4 / 4), calc(var(--emphasize-color-b) * 4 / 4));
+    
+  --default-border-color-hover: rgb(calc(var(--default-background) * 4 / 5), calc(var(--default-background) * 4 / 5), calc(var(--default-background) * 4 / 5));
+  --primary-border-color-hover: rgb(calc(var(--primary-color-r) * 4 / 5), calc(var(--primary-color-g) * 4 / 5), calc(var(--primary-color-b) * 4 / 5));
+  --emphasize-border-color-hover: rgb(calc(var(--emphasize-color-r) * 4 / 5), calc(var(--emphasize-color-g) * 4 / 5), calc(var(--emphasize-color-b) * 4 / 5));
+
+  --default-border-color-active: rgb(calc(var(--default-background) * 4 / 6), calc(var(--default-background) * 4 / 6), calc(var(--default-background) * 4 / 6));
+  --primary-border-color-active: rgb(calc(var(--primary-color-r) * 4 / 6), calc(var(--primary-color-g) * 4 / 6), calc(var(--primary-color-b) * 4 / 6));
+  --emphasize-border-color-active: rgb(calc(var(--emphasize-color-r) * 4 / 6), calc(var(--emphasize-color-g) * 4 / 6), calc(var(--emphasize-color-b) * 4 / 6));
+
+  --default-text-color: rgb(calc(var(--default-background) * 4 / 14), calc(var(--default-background) * 4 / 14), calc(var(--default-background) * 4 / 14));
+  --primary-text-color: rgb(calc(var(--primary-color-r) * 4 / 14), calc(var(--primary-color-g) * 4 / 14), calc(var(--primary-color-b) * 4 / 14));
+  --emphasize-text-color: rgb(calc(var(--emphasize-color-r) * 4 / 14), calc(var(--emphasize-color-g) * 4 / 14), calc(var(--emphasize-color-b) * 4 / 14));
+
+  --default-text-color-hover: rgb(calc(var(--default-background) * 4 / 15), calc(var(--default-background) * 4 / 15), calc(var(--default-background) * 4 / 15));
+  --primary-text-color-hover: rgb(calc(var(--primary-color-r) * 4 / 15), calc(var(--primary-color-g) * 4 / 15), calc(var(--primary-color-b) * 4 / 15));
+  --emphasize-text-color-hover: rgb(calc(var(--emphasize-color-r) * 4 / 15), calc(var(--emphasize-color-g) * 4 / 15), calc(var(--emphasize-color-b) * 4 / 15));
+
+  --default-text-color-active: rgb(calc(var(--default-background) * 4 / 16), calc(var(--default-background) * 4 / 16), calc(var(--default-background) * 4 / 16));
+  --primary-text-color-active: rgb(calc(var(--primary-color-r) * 4 / 16), calc(var(--primary-color-g) * 4 / 16), calc(var(--primary-color-b) * 4 / 16));
+  --emphasize-text-color-active: rgb(calc(var(--emphasize-color-r) * 4 / 16), calc(var(--emphasize-color-g) * 4 / 16), calc(var(--emphasize-color-b) * 4 / 16));
+}
+
+@media (prefers-color-scheme: dark) {
+  :root
+  {
+    --default-background-color: rgb(calc(var(--default-background) * 4 / 15), calc(var(--default-background) * 4 / 15), calc(var(--default-background) * 4 / 15));
+    --primary-background-color: rgb(calc(var(--primary-color-r) * 4 / 15), calc(var(--primary-color-g) * 4 / 15), calc(var(--primary-color-b) * 4 / 15));
+    --emphasize-background-color: rgb(calc(var(--emphasize-color-r) * 4 / 15), calc(var(--emphasize-color-g) * 4 / 15), calc(var(--emphasize-color-b) * 4 / 15));
+
+    --default-background-color-hover: rgb(calc(var(--default-background) * 4 / 14), calc(var(--default-background) * 4 / 14), calc(var(--default-background) * 4 / 14));
+    --primary-background-color-hover: rgb(calc(var(--primary-color-r) * 4 / 14), calc(var(--primary-color-g) * 4 / 14), calc(var(--primary-color-b) * 4 / 14));
+    --emphasize-background-color-hover: rgb(calc(var(--emphasize-color-r) * 4 / 14), calc(var(--emphasize-color-g) * 4 / 14), calc(var(--emphasize-color-b) * 4 / 14));
+
+    --default-background-color-active: rgb(calc(var(--default-background) * 4 / 16), calc(var(--default-background) * 4 / 16), calc(var(--default-background) * 4 / 16));
+    --primary-background-color-active: rgb(calc(var(--primary-color-r) * 4 / 16), calc(var(--primary-color-g) * 4 / 16), calc(var(--primary-color-b) * 4 / 16));
+    --emphasize-background-color-active: rgb(calc(var(--emphasize-color-r) * 4 / 16), calc(var(--emphasize-color-g) * 4 / 16), calc(var(--emphasize-color-b) * 4 / 16));
+    
+    --default-border-color: rgb(calc(var(--default-background) * 4 / 6), calc(var(--default-background) * 4 / 6), calc(var(--default-background) * 4 / 6));
+    --primary-border-color: rgb(calc(var(--primary-color-r) * 4 / 6), calc(var(--primary-color-g) * 4 / 6), calc(var(--primary-color-b) * 4 / 6));
+    --emphasize-border-color: rgb(calc(var(--emphasize-color-r) * 4 / 6), calc(var(--emphasize-color-g) * 4 / 6), calc(var(--emphasize-color-b) * 4 / 6));
+
+    --default-border-color-hover: rgb(calc(var(--default-background) * 4 / 5), calc(var(--default-background) * 4 / 5), calc(var(--default-background) * 4 / 5));
+    --primary-border-color-hover: rgb(calc(var(--primary-color-r) * 4 / 5), calc(var(--primary-color-g) * 4 / 5), calc(var(--primary-color-b) * 4 / 5));
+    --emphasize-border-color-hover: rgb(calc(var(--emphasize-color-r) * 4 / 5), calc(var(--emphasize-color-g) * 4 / 5), calc(var(--emphasize-color-b) * 4 / 5));
+
+    --default-border-color-active: rgb(calc(var(--default-background) * 4 / 7), calc(var(--default-background) * 4 / 7), calc(var(--default-background) * 4 / 7));
+    --primary-border-color-active: rgb(calc(var(--primary-color-r) * 4 / 7), calc(var(--primary-color-g) * 4 / 7), calc(var(--primary-color-b) * 4 / 7));
+    --emphasize-border-color-active: rgb(calc(var(--emphasize-color-r) * 4 / 7), calc(var(--emphasize-color-g) * 4 / 7), calc(var(--emphasize-color-b) * 4 / 7));
+
+    --default-text-color: rgb(calc(var(--default-background) * 4 / 3  ), calc(var(--default-background) * 4 / 3 ), calc(var(--default-background) * 4 / 3 ));
+    --primary-text-color: rgb(calc(var(--primary-color-r) * 4 / 3 ), calc(var(--primary-color-g) * 4 / 3 ), calc(var(--primary-color-b) * 4 / 3 ));
+    --emphasize-text-color: rgb(calc(var(--emphasize-color-r) * 4 / 3 ), calc(var(--emphasize-color-g) * 4 / 3 ), calc(var(--emphasize-color-b) * 4 / 3 ));
+
+    --default-text-color-hover: rgb(calc(var(--default-background) * 4 / 2  ), calc(var(--default-background) * 4 / 2 ), calc(var(--default-background) * 4 / 2 ));
+    --primary-text-color-hover: rgb(calc(var(--primary-color-r) * 4 / 2 ), calc(var(--primary-color-g) * 4 / 2 ), calc(var(--primary-color-b) * 4 / 2 ));
+    --emphasize-text-color-hover: rgb(calc(var(--emphasize-color-r) * 4 / 2 ), calc(var(--emphasize-color-g) * 4 / 2 ), calc(var(--emphasize-color-b) * 4 / 2 ));
+
+    --default-text-color-active: rgb(calc(var(--default-background) * 4 / 4  ), calc(var(--default-background) * 4 / 4  ), calc(var(--default-background) * 4 / 4  ));
+    --primary-text-color-active: rgb(calc(var(--primary-color-r) * 4 / 4  ), calc(var(--primary-color-g) * 4 / 4  ), calc(var(--primary-color-b) * 4 / 4  ));
+    --emphasize-text-color-active: rgb(calc(var(--emphasize-color-r) * 4 / 4  ), calc(var(--emphasize-color-g) * 4 / 4  ), calc(var(--emphasize-color-b) * 4 / 4  ));
+  }
+}
+
+body {
+  /* min-height: 100vh; */
+  /* position: relative; */
+  color: var(--default-text-color);
+  background: var(--default-background-color);
+  transition: color 0.5s, background-color 0.5s;
+  line-height: 1.6;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

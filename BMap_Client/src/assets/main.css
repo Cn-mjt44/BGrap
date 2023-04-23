@@ -1,0 +1,56 @@
+@import './base.css';
+
+:root
+{
+    --border-radius: .1cm;
+    scrollbar-color: var(--primary-border-color) transparent;
+}
+@media (min-height: 480px) {
+    :root
+    {
+        --border-radius: .25cm;
+    }
+}
+@media (min-height: 640px) {
+    :root
+    {
+        --border-radius: .5cm;
+    }
+}
+
+.ThinScrollbar
+{
+    scrollbar-width: thin;
+}
+
+::-webkit-scrollbar
+{
+    width: 16px;
+    background-color: transparent; /* or add it to the track */
+}
+.ThinScrollbar::-webkit-scrollbar
+{
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background-color: var(--primary-border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover
+{
+    background-color: var(--primary-border-color-hover);
+}
+
+::-webkit-scrollbar-thumb:active
+{
+    background-color: var(--primary-border-color-active);
+}
+
+::-webkit-scrollbar-corner
+{
+    background-color: transparent;
+}

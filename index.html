@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    body{
+        position: absolute;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        /* align-content: center; */
+        /* flex-wrap: wrap; */
+        align-items: center;
+    }
+    div#svgCTX
+    {
+        position: relative;
+        width: 512px;
+        height: 512px;
+        background-color: white;
+        background-image: repeating-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 32px, rgba(128, 128, 128, 0.5) 32px, rgba(128, 128, 128, 0.5) 64px),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 32px, rgba(128, 128, 128, 0.5) 32px, rgba(128, 128, 128, 0.5) 64px);
+        /* background-color: gray; */
+        /* align-self: center; */
+    }
+    </style>
+</head>
+<body>
+    <div id="svgCTX" style="stroke-width: 5px;">
+        <svg width="512" height="512" id="icon">
+            <!-- <rect x="128" y="128" fill="deepskyblue" style="width: 256px; height: 256px;"/> -->
+            <!-- <path d="M 0 0 L512 512 L 512 0 Z" style="color:orange"/> -->
+            <!-- <path s -->
+                
+            <!-- <path fill="none" stroke="red"
+            d="M 10,30
+                A 20,20 0,0,1 50,30
+                A 20,20 0,0,1 90,30
+                Q 90,60 50,90
+                Q 10,60 10,30 z
+                " /> -->
+                <!-- <path d="M100,100l100,-100l-200,0Z"></path> -->
+        </svg>
+    </div>
+    <!-- <script src="./js/SVGHelper.js"></script> -->
+    <script type='module'>
+        // import * as SVGHelper from "./js/SVGHelper.js"
+        // console.dir(window);
+        // let rect = new SVGRectElement()
+        // let path = new SVGPathElement()
+        // function getIn(_this : SVGPathElement)
+        // {
+        //     // console.dir(_this)
+        //     // console.dir(_this.attributes.fill)
+        //     _this.style.color = 
+        // }
+        // function getOut(_this)
+        // {
+        //     // console.dir(_this)
+        //     // console.dir(_this.attributes.fill)
+        //     _this.attributes.fill = 'orange'
+        // }
+        // function test()
+        // {
+        //     this.data = "test";
+        // }
+        // test.prototype.toString = function(){
+        //     return this.data;
+        // }
+        // console.log(new test())
+        // console.dir(test)
+
+        // class test2 extends Object
+        // {
+        //     constructor()
+        //     {
+        //         super()
+        //         this.data = "test2"
+        //     }
+        //     toString()
+        //     {
+        //         return this.data;
+        //     }
+        // }
+
+        // console.log(new test2())
+        // console.dir(test2)
+        import {Path} from './js/SVGPathHelper.js'
+
+        let icon = document.getElementById("icon");
+        function appendPath(path,fill,stroke)
+        {
+            let pathEle = path.createElement();
+            pathEle.setAttribute('fill',fill);
+            pathEle.setAttribute('stroke',stroke);
+            icon.appendChild(pathEle);
+        }
+        let
+        path = new Path()
+        .moveToAbs(100,100)
+        .ellipticRel(50,25,50,0,0,true,true)
+        .bezierRel_3p(null,null,0,50,50,50)
+        .bezierRel_3p(null,null,0,50,50,50)
+        .ClosePath()
+        // appendPath(path,'#0000','#f00f')
+        // console.log(path);
+        // path = new Path()
+        .moveToAbs(200,100)
+        .bezierRel_3p(null,null,0,50,100,50)
+        .bezierRel_3p(null,null,0,50,50,50)
+        .ClosePath()
+        appendPath(path,'#f80f','#f00f')
+        console.log(path);
+        // window.alert(path + "Z")
+        // svg_path.style['d'] = 'path("'+path+'")';
+        // svg_path.style.transformOrigin = "0 0"
+    </script>
+</body>
+</html>
