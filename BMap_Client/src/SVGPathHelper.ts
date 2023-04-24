@@ -18,7 +18,7 @@ class MoveToAbs implements SVGPathNode
         }
         else throw "not support " + (typeof x) + " or " + (typeof y)
     }
-    vectorInfoAt(): { x: number; y: number; dx: number; dy: number; } {
+    public vectorInfoAt(): { x: number; y: number; dx: number; dy: number; } {
         return {x:this.x,y:this.y,dx:0,dy:0};
     }
 
@@ -42,7 +42,7 @@ class MoveToRel implements SVGPathNode
         }
         else throw "not support " + (typeof dx) + " or " + (typeof dy)
     }
-    vectorInfoAt(t: number, x: number, y: number): { x: number; y: number; dx: number; dy: number; } {
+    public vectorInfoAt(t: number, x: number, y: number): { x: number; y: number; dx: number; dy: number; } {
         return {x:this.dx + x,y:this.dy + y,dx:0,dy:0};
     }
 
@@ -71,9 +71,10 @@ class LineToAbs implements SVGPathNode
         }
         if(err) throw "not support " + (typeof x) + " or " + (typeof y)
     }
-    vectorInfoAt(t: number, x: number, y: number): { x: number; y: number; dx: number; dy: number; } {
-        const dx = (this.x ?? x) - x;
-        const dy = (this.y ?? y) - y;
+    public vectorInfoAt(t: number, x: number, y: number, dx: number, dy: number): { x: number; y: number; dx: number; dy: number; } {
+        if(t <= 0) return {x:x,y:y,dx:dx,dy:dy}
+        dx = (this.x ?? x) - x;
+        dy = (this.y ?? y) - y;
         return {x:x + dx * t,y:y + dy * t,dx:dx,dy:dy};
     }
 
@@ -118,9 +119,10 @@ class LineToRel implements SVGPathNode
         }
         if(err) throw "not support " + (typeof dx) + " or " + (typeof dy)
     }
-    vectorInfoAt(t: number, x: number, y: number): { x: number; y: number; dx: number; dy: number; } {
-        const dx = this.dx ?? 0;
-        const dy = this.dy ?? 0;
+    public vectorInfoAt(t: number, x: number, y: number, dx: number, dy: number): { x: number; y: number; dx: number; dy: number; } {
+        if(t <= 0) return {x:x,y:y,dx:dx,dy:dy}
+        dx = this.dx ?? 0;
+        dy = this.dy ?? 0;
         return {x:x + dx * t,y:y + dy * t,dx:dx,dy:dy};
     }
 
@@ -217,7 +219,8 @@ class BezierAbs_3p implements SVGPathNode
             (typeof des_x) + ", " + (typeof des_y)
     }
 
-    vectorInfoAt(t:number,x:number,y:number,dx:number,dy:number,index:number,path:SVGPath):{x:number,y:number,dx:number,dy:number} {
+    public vectorInfoAt(t:number,x:number,y:number,dx:number,dy:number,index:number,path:SVGPath):{x:number,y:number,dx:number,dy:number} {
+        if(t <= 0) return {x:x,y:y,dx:dx,dy:dy}
         let _dx = 0;
         let _dy = 0;
         const prevNode = path.path[index - 1];
@@ -236,8 +239,8 @@ class BezierAbs_3p implements SVGPathNode
         const scy = this.scy ?? _dy;
         const oneMineT = 1 - t;
         const oneMineT_3_t_0 = oneMineT * oneMineT * oneMineT;
-        const oneMineT_2_t_1 = oneMineT * oneMineT * t;
-        const oneMineT_1_t_2 = oneMineT * t * t;
+        const oneMineT_2_t_1 = oneMineT * oneMineT * t * 3;
+        const oneMineT_1_t_2 = oneMineT * t * t * 3;
         const oneMineT_0_t_3 = t * t * t;
         function c(p1: number,p2: number,p3: number,p4: number)
         {
@@ -251,6 +254,31 @@ class BezierAbs_3p implements SVGPathNode
         {
             return p1 * s1 + p2 * s2 + p3 * s3 + p4 * s4;
         }
+        // console.dir({
+        //     x:x,
+        //     y:y,
+        //     scx:scx,
+        //     scy:scy,
+        //     dcx:this.dcx,
+        //     dcy:this.dcy,
+        //     des_x:this.des_x,
+        //     des_y:this.des_y,
+        //     oneMineT:oneMineT,
+        //     oneMineT_3_t_0:oneMineT_3_t_0,
+        //     oneMineT_2_t_1:oneMineT_2_t_1,
+        //     oneMineT_1_t_2:oneMineT_1_t_2,
+        //     oneMineT_0_t_3:oneMineT_0_t_3,
+        //     s1:s1,
+        //     s2:s2,
+        //     s3:s3,
+        //     s4:s4,
+        //     res:{
+        //         x:c(x,scx,this.dcx,this.des_x),
+        //         y:c(y,scy,this.dcy,this.des_y),
+        //         dx:dc(x,scx,this.dcx,this.des_x),
+        //         dy:dc(y,scy,this.dcy,this.des_y),
+        //     }
+        // });
         return{
             x:c(x,scx,this.dcx,this.des_x),
             y:c(y,scy,this.dcy,this.des_y),
@@ -353,7 +381,8 @@ class BezierRel_3p implements SVGPathNode
             (typeof des_dx) + ", " + (typeof des_dy)
     }
 
-    vectorInfoAt(t:number,x:number,y:number,dx:number,dy:number,index:number,path:SVGPath):{x:number,y:number,dx:number,dy:number} {
+    public vectorInfoAt(t:number,x:number,y:number,dx:number,dy:number,index:number,path:SVGPath):{x:number,y:number,dx:number,dy:number} {
+        if(t <= 0) return {x:x,y:y,dx:dx,dy:dy}
         let _dx = 0;
         let _dy = 0;
         const prevNode = path.path[index - 1];
@@ -372,8 +401,8 @@ class BezierRel_3p implements SVGPathNode
         const scy = y + (this.scdy ?? _dy);
         const oneMineT = 1 - t;
         const oneMineT_3_t_0 = oneMineT * oneMineT * oneMineT;
-        const oneMineT_2_t_1 = oneMineT * oneMineT * t;
-        const oneMineT_1_t_2 = oneMineT * t * t;
+        const oneMineT_2_t_1 = oneMineT * oneMineT * t * 3;
+        const oneMineT_1_t_2 = oneMineT * t * t * 3;
         const oneMineT_0_t_3 = t * t * t;
         function c(p1: number,p2: number,p3: number,p4: number)
         {
@@ -480,7 +509,8 @@ class BezierAbs_2p implements SVGPathNode
             (typeof des_x) + ", " + (typeof des_y)
     }
     
-    vectorInfoAt(t:number,x:number,y:number,dx:number,dy:number,index:number,path:SVGPath):{x:number,y:number,dx:number,dy:number} {
+    public vectorInfoAt(t:number,x:number,y:number,dx:number,dy:number,index:number,path:SVGPath):{x:number,y:number,dx:number,dy:number} {
+        if(t <= 0) return {x:x,y:y,dx:dx,dy:dy}
         let _dx = 0;
         let _dy = 0;
         const prevNode = path.path[index - 1];
@@ -499,7 +529,7 @@ class BezierAbs_2p implements SVGPathNode
         const cy = this.cy ?? _dy;
         const oneMineT = 1 - t;
         const oneMineT_2_t_0 = oneMineT * oneMineT;
-        const oneMineT_1_t_1 = oneMineT * t;
+        const oneMineT_1_t_1 = oneMineT * t * 2;
         const oneMineT_0_t_2 = t * t;
         function c(p1: number,p2: number,p3: number)
         {
@@ -603,7 +633,8 @@ class BezierRel_2p implements SVGPathNode
     }
     
     
-    vectorInfoAt(t:number,x:number,y:number,dx:number,dy:number,index:number,path:SVGPath):{x:number,y:number,dx:number,dy:number} {
+    public vectorInfoAt(t:number,x:number,y:number,dx:number,dy:number,index:number,path:SVGPath):{x:number,y:number,dx:number,dy:number} {
+        if(t <= 0) return {x:x,y:y,dx:dx,dy:dy}
         let _dx = 0;
         let _dy = 0;
         const prevNode = path.path[index];
@@ -622,7 +653,7 @@ class BezierRel_2p implements SVGPathNode
         const cy = y + (this.cdy ?? _dy);
         const oneMineT = 1 - t;
         const oneMineT_2_t_0 = oneMineT * oneMineT;
-        const oneMineT_1_t_1 = oneMineT * t;
+        const oneMineT_1_t_1 = oneMineT * t * 2;
         const oneMineT_0_t_2 = t * t;
         function c(p1: number,p2: number,p3: number)
         {
@@ -713,7 +744,8 @@ class EllipticAbs implements SVGPathNode
             (typeof rx) + ", " + (typeof ry) + ", " +
             (typeof des_x) + ", " + (typeof des_y)
     }
-    vectorInfoAt(t: number, x: number, y: number): { x: number; y: number; dx: number; dy: number; } {
+    vectorInfoAt(t: number, x: number, y: number, dx:number,dy:number): { x: number; y: number; dx: number; dy: number; } {
+        if(t <= 0) return {x:x,y:y,dx:dx,dy:dy}
         throw new Error("Method not implemented.");
     }
 
@@ -778,7 +810,8 @@ class EllipticRel implements SVGPathNode
             (typeof rx) + ", " + (typeof ry) + ", " +
             (typeof des_dx) + ", " + (typeof des_dy)
     }
-    vectorInfoAt(t: number, x: number, y: number): { x: number; y: number; dx: number; dy: number; } {
+    vectorInfoAt(t: number, x: number, y: number, dx:number, dy:number): { x: number; y: number; dx: number; dy: number; } {
+        if(t <= 0) return {x:x,y:y,dx:dx,dy:dy}
         throw new Error("Method not implemented.");
     }
 
@@ -796,6 +829,7 @@ class ClosePath implements SVGPathNode
 {
 
     vectorInfoAt(t: number, x: number, y: number, dx: number, dy: number, index: number, path: SVGPath): { x: number; y: number; dx: number; dy: number; } {
+        if(t <= 0) return {x:x,y:y,dx:dx,dy:dy}
         let moveToNode : number = -1;
         const oneMineT = 1 - t;
         for(let i = index - 1; i >= 0; i--)
@@ -820,6 +854,11 @@ class ClosePath implements SVGPathNode
         throw "not found the MoveTo node in path"
         
     }
+
+    toString()
+    {
+        return "Z";
+    }
     
 
 }
@@ -840,15 +879,19 @@ class SVGPath
 
     public vectorInfoAt(t:number):{x:number,y:number,dx:number,dy:number}
     {
-        const index : number = Math.floor(t);
+        const index = Math.floor(t);
+
+        let result = {x:0,y:0,dx:0,dy:0};
         
-        // for(let i = 0; i < index; i++)
-        // {
+        for(let i = 0; i <= index && i < this.path.length; i++)
+        {
+            const pt = Math.min(1,t - i);
+            // console.dir({pt:pt,result:result});
+            result = this.path[i].vectorInfoAt(pt,result.x,result.y,result.dx,result.dy,i,this);
+        }
+        // console.dir({pt:Math.min(1,t - index),result:result});
 
-        // }
-
-
-        return {x:0,y:0,dx:0,dy:0};
+        return result;
     }
 
     public toString()
@@ -872,12 +915,14 @@ class SVGPath
 
     public checkAndFixPath()
     {
+        // console.dir(this.path[0].constructor);
+        // console.dir(MoveToAbs);
         if(this.path.length <= 0) this.moveToAbs(0,0)
         else if(
-            this.path[0] != null && this.path[0] != undefined &&
-            (
-                this.path[0].constructor == MoveToAbs || this.path[0].constructor == MoveToRel
-            )
+            this.path[0] != null &&
+            this.path[0] != undefined &&
+            this.path[0].constructor != MoveToAbs &&
+            this.path[0].constructor != MoveToRel
         ) this.path.unshift(new MoveToAbs(0,0))
     }
 

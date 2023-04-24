@@ -221,31 +221,45 @@
                     })
                 })
 
-                
+                let line = 
+                new SVGPath(null!)
+                .moveToAbs(fromConnectPoint.x,fromConnectPoint.y)
+                .bezierAbs_3p(
+                    (fromConnectPointIndex % 2 != 0) ? toConnectPoint.x : fromConnectPoint.x,
+                    (fromConnectPointIndex % 2 != 0) ? fromConnectPoint.y : toConnectPoint.y,
+                    (toConnectPointIndex % 2 != 0) ? fromConnectPoint.x : toConnectPoint.x,
+                    (toConnectPointIndex % 2 != 0) ? toConnectPoint.y : fromConnectPoint.y,
+                    toConnectPoint.x,toConnectPoint.y
+                )
                 lines.push(
-                    new SVGPath(null!)
-                    .moveToAbs(fromConnectPoint.x,fromConnectPoint.y)
-                    .bezierAbs_3p(
-                        (fromConnectPointIndex % 2 != 0) ? toConnectPoint.x : fromConnectPoint.x,
-                        (fromConnectPointIndex % 2 != 0) ? fromConnectPoint.y : toConnectPoint.y,
-                        (toConnectPointIndex % 2 != 0) ? fromConnectPoint.x : toConnectPoint.x,
-                        (toConnectPointIndex % 2 != 0) ? toConnectPoint.y : fromConnectPoint.y,
-                        toConnectPoint.x,toConnectPoint.y
-                    )
+                    line
                 );
+                let vectorInfo = line.vectorInfoAt(1.5);
+                let deltaLength = Math.sqrt(vectorInfo.dx * vectorInfo.dx + vectorInfo.dy * vectorInfo.dy);
+                if(deltaLength <= 0)
+                {
+                    vectorInfo.dx = toConnectPoint.x - fromConnectPoint.x;
+                    vectorInfo.dy = toConnectPoint.y - fromConnectPoint.y;
+                    deltaLength = Math.sqrt(vectorInfo.dx * vectorInfo.dx + vectorInfo.dy * vectorInfo.dy);
+                }
+                vectorInfo.dx /= deltaLength;
+                vectorInfo.dy /= deltaLength;
+                //  x   y
+                //| dx -dy| x'
+                //| dy  dx| y'
                 lines.push(
                     new SVGPath(null!)
                     .moveToAbs(
-                        toConnectPoint.x,
-                        toConnectPoint.y
+                        vectorInfo.x,
+                        vectorInfo.y
                     )
                     .lineToRel(
-                        (toConnectPointIndex % 2 != 0) ? Math.sign(fromConnectPoint.x - toConnectPoint.x) * 8 : 8,
-                        (toConnectPointIndex % 2 != 0) ? 8 : Math.sign(fromConnectPoint.y - toConnectPoint.y) * 8,
+                        vectorInfo.dx * (-13.8564) - vectorInfo.dy * 8,
+                        vectorInfo.dy * (-13.8564) + vectorInfo.dx * 8,
                     )
                     .lineToRel(
-                        (toConnectPointIndex % 2 != 0) ? 0 : -16,
-                        (toConnectPointIndex % 2 != 0) ? -16 : 0,
+                        vectorInfo.dy * 16,
+                        - vectorInfo.dx * 16,
                     )
                     .closePath()
                     
@@ -306,7 +320,9 @@
     }
     #links > path.line:nth-child(2n)
     {
-        fill: var(--emphasize-border-color);
+        stroke: var(--emphasize-border-color);
+        stroke-width: 2px;
+        fill: var(--primary-border-color);
     }
     #links > path.line:nth-child(2n+1):hover
     {
