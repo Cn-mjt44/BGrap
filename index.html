@@ -27,8 +27,14 @@
         background-color: white;
         background-image: repeating-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 32px, rgba(128, 128, 128, 0.5) 32px, rgba(128, 128, 128, 0.5) 64px),
         repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 32px, rgba(128, 128, 128, 0.5) 32px, rgba(128, 128, 128, 0.5) 64px);
+        /* background-blend-mode:difference; */
+
         /* background-color: gray; */
         /* align-self: center; */
+        /* background-size: 8px 8px; */
+    }
+    div#svgCTX>svg>*:hover{
+        fill:#f80f;
     }
     </style>
 </head>
@@ -98,7 +104,7 @@
         function appendPath(path,fill,stroke)
         {
             let pathEle = path.createElement();
-            pathEle.setAttribute('fill',fill);
+            // pathEle.setAttribute('fill',fill);
             pathEle.setAttribute('stroke',stroke);
             icon.appendChild(pathEle);
         }

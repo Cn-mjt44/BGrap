@@ -80,8 +80,11 @@ onBeforeUnmount(()=>{
   border-radius: var(--border-radius) ;
   padding-top: var(--border-radius);
   padding-bottom: var(--border-radius);
-  background-color: var(--default-background-color-hover);
+  /* background-color: var(--default-background-color-hover); */
   box-shadow: 0 0 4px 0 var(--primary-border-color-active);
+  background-image: radial-gradient(transparent 1px,var(--default-background-color) 1px);
+  background-size: 4px 4px;
+  backdrop-filter: saturate(50%) blur(4px);
 }
 
 .plane>.ctx

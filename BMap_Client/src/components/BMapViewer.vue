@@ -1,7 +1,8 @@
 <template>
-    <svg ref="linksGrap" id="links" :width="SVGInfo.w" :height="SVGInfo.h">
-        <template v-for="i in SVGInfo.l" :key="i">
-            <path class="line" :d="i.toString()"/>
+    <svg ref="linksGrap" id="links"  :width="SVGInfo.w" :height="SVGInfo.h">
+        <template v-for="(i,index) in SVGInfo.l" :key="index">
+            <path class="line" :d="i.l.toString()"/>
+            <path class="arrow" :d="i.a.toString()"/>
         </template>
     </svg>
     <div ref="cards" id="cards" :style="'width : ' + SVGInfo.w + 'px; height : ' + SVGInfo.h + 'px;'">
@@ -118,7 +119,9 @@
             to:4
         },
     ])
-    let SVGInfo : Ref<{w:number,h:number,l:Array<SVGPath>}> = ref<{w:number,h:number,l:Array<SVGPath>}>({w:0,h:0,l:new Array<SVGPath>()})
+    let SVGInfo : Ref<{w:number,h:number,l:Array<{l:SVGPath,a:SVGPath}>}> = ref<{w:number,h:number,l:Array<{l:SVGPath,a:SVGPath}>}>({w:0,h:0,l:new Array<{l:SVGPath,a:SVGPath}>()});
+    
+
 
     function genSVGPaths()
     {
@@ -126,7 +129,7 @@
         console.log('paths');
         if(cards.value)
         {
-            let info = {w:0,h:0,l:new Array<SVGPath>()};
+            let info = {w:0,h:0,l:new Array<{l:SVGPath,a:SVGPath}>()};
             for(let i = 0; i < cards.value.children.length; i++)
             {
                 let item : HTMLDivElement= cards.value.children[i] as HTMLDivElement;
@@ -231,9 +234,7 @@
                     (toConnectPointIndex % 2 != 0) ? toConnectPoint.y : fromConnectPoint.y,
                     toConnectPoint.x,toConnectPoint.y
                 )
-                lines.push(
-                    line
-                );
+                
                 let vectorInfo = line.vectorInfoAt(1.5);
                 let deltaLength = Math.sqrt(vectorInfo.dx * vectorInfo.dx + vectorInfo.dy * vectorInfo.dy);
                 if(deltaLength <= 0)
@@ -248,21 +249,23 @@
                 //| dx -dy| x'
                 //| dy  dx| y'
                 lines.push(
-                    new SVGPath(null!)
-                    .moveToAbs(
-                        vectorInfo.x,
-                        vectorInfo.y
-                    )
-                    .lineToRel(
-                        vectorInfo.dx * (-13.8564) - vectorInfo.dy * 8,
-                        vectorInfo.dy * (-13.8564) + vectorInfo.dx * 8,
-                    )
-                    .lineToRel(
-                        vectorInfo.dy * 16,
-                        - vectorInfo.dx * 16,
-                    )
-                    .closePath()
-                    
+                    {
+                        l:line,
+                        a:new SVGPath(null!)
+                        .moveToAbs(
+                            vectorInfo.x,
+                            vectorInfo.y
+                        )
+                        .lineToRel(
+                            vectorInfo.dx * (-13.8564) - vectorInfo.dy * 8,
+                            vectorInfo.dy * (-13.8564) + vectorInfo.dx * 8,
+                        )
+                        .lineToRel(
+                            vectorInfo.dy * 16,
+                            - vectorInfo.dx * 16,
+                        )
+                        .closePath()
+                    }
                 )
             }
             SVGInfo.value = info;
@@ -307,30 +310,33 @@
         border-right: 50vw solid transparent;
         border-top: 50vh solid transparent;
         top: 0;
+        pointer-events: all;
     }
     #cards
     {
         position: absolute;
+        pointer-events:none
     }
-    #links > path.line:nth-child(2n+1)
+    #links > path.line
     {
         stroke: var(--emphasize-border-color);
         stroke-width: 4px;
         fill-opacity: 0;
+        pointer-events:stroke
     }
-    #links > path.line:nth-child(2n)
+    #links > path.arrow
     {
         stroke: var(--emphasize-border-color);
         stroke-width: 2px;
         fill: var(--primary-border-color);
     }
-    #links > path.line:nth-child(2n+1):hover
+    #links > path.line:hover
     {
-        stroke: var(--emphasize-border-color);
+        stroke: var(--primary-border-color);
         stroke-width: 5px;
     }
     
-    #links > path.line:nth-child(2n+1):hover + path.line:nth-child(2n)
+    #links > path.line:hover +  path.arrow
     {
         fill: var(--primary-border-color);
     }
