@@ -6,12 +6,12 @@
   <div ref="MenuEle" id="Menu" class="plane">
     <div class="ctx ThinScrollbar">
       
-      <div style="height: 600px;">aaa</div>
+      <!-- <div style="height: 600px;">aaa</div> -->
     </div>
   </div>
   <div ref="InfoEle" id="Info" class="plane">
     <div class="ctx ThinScrollbar">
-      <div style="height: 200%;">bbb</div>
+      <!-- <div style="height: 200%;">bbb</div> -->
     </div>
   </div>
 </template>
@@ -195,7 +195,7 @@ onBeforeUnmount(()=>{
     height: calc(min(max(60% - 1.5cm, 25cm),100% - 1.5cm - var(--border-radius) * 3));
     min-width: 7.5cm;
     max-width: calc(min(15cm,100% - max(10%, var(--border-radius) * 2)));
-  box-shadow: 0 0 4px 0 var(--primary-border-color-active);
+    box-shadow: 0 0 4px 0 var(--primary-border-color-active);
   }
 
   .plane#Menu>.ctx

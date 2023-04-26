@@ -25,13 +25,20 @@
         width: 512px;
         height: 512px;
         background-color: white;
-        background-image: repeating-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 32px, rgba(128, 128, 128, 0.5) 32px, rgba(128, 128, 128, 0.5) 64px),
-        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 32px, rgba(128, 128, 128, 0.5) 32px, rgba(128, 128, 128, 0.5) 64px);
-        /* background-blend-mode:difference; */
-
+        /* background-image: repeating-linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 32px, rgba(128, 128, 128, 0.5) 32px, rgba(128, 128, 128, 0.5) 64px),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) 32px, rgba(128, 128, 128, 0.5) 32px, rgba(128, 128, 128, 0.5) 64px); */
+        background-image:
+            radial-gradient(circle at 0 0,#000 16%, #ffff 16%),
+            radial-gradient(circle at 100% 0,#000 16%, #ffff 16%),
+            radial-gradient(circle at 50% 50%,#000 33%, #ffff 33%),
+            radial-gradient(circle at 0 100%,#000 16%, #ffff 16%),
+            radial-gradient(circle at 100% 100%,#000 16%, #ffff 16%),
+            linear-gradient(#f80f 0, #f80f 100%);
+        background-blend-mode:multiply;
+        background-size: 6px 6px;
         /* background-color: gray; */
         /* align-self: center; */
-        /* background-size: 8px 8px; */
+        /* background-size: 6px 3px; */
     }
     div#svgCTX>svg>*:hover{
         fill:#f80f;

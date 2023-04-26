@@ -10,6 +10,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     BMapViewer: typeof import('./src/components/BMapViewer.vue')['default']
+    CardView: typeof import('./src/components/CardView.vue')['default']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElPageHeader: typeof import('element-plus/es')['ElPageHeader']
     RouterLink: typeof import('vue-router')['RouterLink']

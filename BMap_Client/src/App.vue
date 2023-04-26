@@ -35,7 +35,7 @@ import {Plus} from '@element-plus/icons-vue'
     background-image:
     radial-gradient(transparent 1px,var(--default-background-color) 1px);
     background-size: 4px 4px;
-    backdrop-filter: saturate(50%) blur(4px);
+    backdrop-filter: blur(4px);
     
     /* linear-gradient(90deg, 
     rgb(0,0,0,0),
