@@ -1,59 +1,159 @@
 <template>
 
   
-  <b-map-viewer/>
+  <b-map-viewer :nodes="nodes" :links="links" @selectCard="selectCard"/>
 
-  <div ref="MenuEle" id="Menu" class="plane">
+  <div ref="MenuEle" id="Menu" class="plane" v-show="shouldMenuEleShow()" :key="update.toString()">
     <div class="ctx ThinScrollbar">
       
-      <!-- <div style="height: 600px;">aaa</div> -->
+      <div style="height: 600px;">aaa</div>
     </div>
   </div>
-  <div ref="InfoEle" id="Info" class="plane">
+  <div ref="InfoEle" id="Info" class="plane" v-show="fromSelected >= 0 || toSelected >= 0">
     <div class="ctx ThinScrollbar">
       <!-- <div style="height: 200%;">bbb</div> -->
+        <div v-if="fromSelected >= 0">
+          <h3>{{ nodes[fromSelected].name }}</h3>
+          <div>
+            <p>{{ nodes[fromSelected].info }}</p>
+          </div>
+        </div>
+        <div v-if="toSelected >= 0">
+          <h3>{{ nodes[toSelected].name }}</h3>
+          <div>
+            <p>{{ nodes[toSelected].info }}</p>
+          </div>
+        </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref, type Ref } from 'vue';
-import {border_radius} from '../CSSDataSet';
+import { onBeforeUnmount, onMounted, onUpdated, ref, type Ref } from 'vue';
 
 // let menuHeight : Ref<String> = ref<String>("auto");
-let MenuEle : Ref<HTMLElement>= ref<HTMLElement>(null!)
-let InfoEle : Ref<HTMLElement>= ref<HTMLElement>(null!)
-
-  function resizeEvent()
+const MenuEle : Ref<HTMLElement>= ref<HTMLElement>(null!);
+const InfoEle : Ref<HTMLElement>= ref<HTMLElement>(null!);
+const nodes : Ref<
+  Array<{
+    name:string|undefined,
+    info:string|undefined,
+    postion:
+    {
+        x:number,
+        y:number
+    }
+  }>
+> = ref<
+  Array<{
+    name:string|undefined,
+    info:string|undefined,
+    postion:
+    {
+        x:number,
+        y:number
+    }
+  }>
+>([
   {
-    MenuEle.value.style.height = null!;
-    InfoEle.value.style.borderTopLeftRadius = null!;
-    InfoEle.value.style.borderTopRightRadius = null!;
-    MenuEle.value.style.borderBottomLeftRadius = null!;
-    MenuEle.value.style.borderBottomRightRadius = null!;
-    let height = MenuEle.value.clientHeight;
-    MenuEle.value.style.height="calc(min(max(35% - " + border_radius() * 3 + "px, 2cm),100% - 1.5cm - " + border_radius() * 3 + "px))";
-    console.log(height);
-    console.log(MenuEle.value.clientHeight);
-    if(MenuEle.value.clientHeight > height)
-    {
-      MenuEle.value.style.height = null!;
-      if(screen.width >= 640 && screen.width < 1024 && MenuEle.value.clientHeight - height < border_radius())
-      {
-        InfoEle.value.style.borderTopLeftRadius = '0';
-        InfoEle.value.style.borderTopRightRadius = '0';
-        MenuEle.value.style.borderBottomLeftRadius = '0';
-        MenuEle.value.style.borderBottomRightRadius = '0';
+      name:"test1",
+      info:"Test1 info",
+      postion:{
+          x:0,
+          y:0
       }
-    }
-    else if(screen.width >= 640 && screen.width < 1024)
+  },
+  {
+      name:"test2",
+      info:"Test2 info",
+      postion:{
+          x:200,
+          y:0
+      }
+  },
+  {
+      name:"test3",
+      info:"Test3 info",
+      postion:{
+          x:200,
+          y:200
+      }
+  },
+  {
+      name:"test4",
+      info:"Test4 info",
+      postion:{
+          x:400,
+          y:200
+      }
+  },
+  {
+      name:"test5",
+      info:"Test5 info",
+      postion:{
+          x:350,
+          y:800
+      }
+  },
+]);
+
+const links : Ref<Array<{from:number,to:number}>> = ref<Array<{from:number,to:number}>>(
+  [
     {
-      InfoEle.value.style.borderTopLeftRadius = '0';
-      InfoEle.value.style.borderTopRightRadius = '0';
-      MenuEle.value.style.borderBottomLeftRadius = '0';
-      MenuEle.value.style.borderBottomRightRadius = '0';
-    }
-  }
-  
+        from:0,
+        to:1
+    },
+    {
+        from:1,
+        to:2
+    },
+    {
+        from:0,
+        to:2
+    },
+    {
+        from:0,
+        to:3
+    },
+    {
+        from:1,
+        to:3
+    },
+    {
+        from:2,
+        to:3
+    },
+    {
+        from:0,
+        to:4
+    },
+    {
+        from:2,
+        to:4
+    },
+  ]
+);
+
+const fromSelected : Ref<number> = ref<number>(-1);
+const toSelected : Ref<number> = ref<number>(-1);
+let update : Ref<boolean> = ref<boolean>(false);
+
+
+function resizeEvent()
+{
+  update.value = true;
+}
+
+function selectCard(from : number,to : number)
+{
+  // console.log(from + "," + to);
+  fromSelected.value = from;
+  toSelected.value = to;
+}
+
+function shouldMenuEleShow():boolean
+{
+  return (fromSelected.value < 0 && toSelected.value < 0) || screen.width >= 640;
+}
 
 onMounted(()=>
 {
@@ -67,6 +167,12 @@ onMounted(()=>
 onBeforeUnmount(()=>{
   window.removeEventListener('resize',resizeEvent)
   console.log('umount');
+})
+
+onUpdated(()=>
+{
+  update.value = false;
+  console.log('update')
 })
 
 </script>
@@ -102,7 +208,7 @@ onBeforeUnmount(()=>{
   top: var(--border-radius);
   right: var(--border-radius); 
   width: calc(min(15cm,100% - var(--border-radius) * 2));
-  height: 35%;
+  height: 38.2%;
 }
 
 .plane#Info
@@ -110,7 +216,21 @@ onBeforeUnmount(()=>{
   top: var(--border-radius);
   right: var(--border-radius);  
   width: calc(min(15cm,100% - var(--border-radius) * 2));
-  height: 35%;
+  height: 38.2%;
+}
+
+.plane#Info>.ctx>div>h3
+{
+  text-align: center;
+}
+
+.plane#Info>.ctx>div:nth-child(1)>h3
+{
+  background-color: var(--emphasize-border-color-active);
+}
+.plane#Info>.ctx>div:nth-child(2)>h3
+{
+  background-color: var(--primary-border-color-active);
 }
 
 
@@ -134,21 +254,23 @@ onBeforeUnmount(()=>{
     right: var(--border-radius); 
     width: 20%;
     /* height: calc(min(max(35% - 1.5cm, 2cm),100% - 3cm)); */
+    /* height: auto; */
+    max-height: max(38.2% - var(--border-radius) * 3.5, var(--border-radius) * 2 + .5cm);
     min-width: 7.5cm;
     max-width: calc(min(15cm,100% - var(--border-radius) * 2));
-    box-shadow: 0 -4px 4px 0 var(--primary-border-color-active);
+    box-shadow: 0 0 4px 0 var(--primary-border-color-active);
   }
 
   .plane#Info
   {
-    top: calc(min(max(35% - var(--border-radius), var(--border-radius) * 2 + 2cm),100% - 1.5cm - var(--border-radius)));
+    top: max(38.2%, var(--border-radius) * 2 + .5cm);
     right: var(--border-radius);  
     width: 20%;
     height: auto;
     bottom:1.5cm;
     min-width: 7.5cm;
     max-width: calc(min(15cm,100% - var(--border-radius) * 2));
-    box-shadow: 0 4px 4px 0 var(--primary-border-color-active);
+    box-shadow: 0 0 4px 0 var(--primary-border-color-active);
   }
 
 }

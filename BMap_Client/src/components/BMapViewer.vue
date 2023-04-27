@@ -32,85 +32,11 @@
                         y:number
                     }
                 }>,
-            default:[
-                {
-                    name:"test1",
-                    info:"Test1 info",
-                    postion:{
-                        x:0,
-                        y:0
-                    }
-                },
-                {
-                    name:"test2",
-                    info:"Test2 info",
-                    postion:{
-                        x:200,
-                        y:0
-                    }
-                },
-                {
-                    name:"test3",
-                    info:"Test3 info",
-                    postion:{
-                        x:200,
-                        y:200
-                    }
-                },
-                {
-                    name:"test4",
-                    info:"Test4 info",
-                    postion:{
-                        x:400,
-                        y:200
-                    }
-                },
-                {
-                    name:"test5",
-                    info:"Test5 info",
-                    postion:{
-                        x:350,
-                        y:800
-                    }
-                },
-            ]
+            default:[]
         },
         links:{
             type:Array<{from:number,to:number}>,
-            default:[
-                {
-                    from:0,
-                    to:1
-                },
-                {
-                    from:1,
-                    to:2
-                },
-                {
-                    from:0,
-                    to:2
-                },
-                {
-                    from:0,
-                    to:3
-                },
-                {
-                    from:1,
-                    to:3
-                },
-                {
-                    from:2,
-                    to:3
-                },
-                {
-                    from:0,
-                    to:4
-                },
-                {
-                    from:2,
-                    to:4
-                },
-            ]
+            default:[]
         }
     })
     let SVGInfo : Ref<{w:number,h:number,l:Array<{l:SVGPath,a:SVGPath}>}> = ref<{w:number,h:number,l:Array<{l:SVGPath,a:SVGPath}>}>({w:0,h:0,l:new Array<{l:SVGPath,a:SVGPath}>()});
